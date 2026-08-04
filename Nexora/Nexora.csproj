@@ -7,6 +7,13 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Data\Mappings\**" />
+    <Content Remove="Data\Mappings\**" />
+    <EmbeddedResource Remove="Data\Mappings\**" />
+    <None Remove="Data\Mappings\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="AutoMapper" Version="12.0.1" />
     <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="12.0.1" />
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="8.0.29" />
@@ -23,7 +30,6 @@
     <Folder Include="Interfaces\" />
     <Folder Include="DTOs\" />
     <Folder Include="Enums\" />
-    <Folder Include="Data\Mappings\" />
     <Folder Include="Repositories\" />
     <Folder Include="Services\" />
   </ItemGroup>
