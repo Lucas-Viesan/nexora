@@ -1,5 +1,8 @@
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection;
 using Nexora.Data.Context;
+using Nexora.Interfaces;
+using Nexora.Repositories;
 using Nexora.Services;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -10,7 +13,9 @@ builder.Services.AddDbContext<AppDbContext>(options => options.UseMySql(connecti
 
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
-builder.Services.AddScoped<ProdutoService>();
+builder.Services.AddScoped<IProdutoService, ProdutoService>();
+builder.Services.AddScoped<IProdutoRepository, ProdutoRepository>();
+builder.Services.AddScoped<IUsuarioRepository, UsuarioRepository>();
 
 // Add services to the container.
 
@@ -21,7 +26,7 @@ builder.Services.AddSwaggerGen();
 
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
+// Configure the HTTP request pipeline
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();

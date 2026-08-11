@@ -8,8 +8,8 @@ namespace Nexora.Profiles
     {
         public ProdutoProfile()
         {
-            CreateMap<ProdutoResponse, Produto>();
-            CreateMap<Produto, ProdutoCreate>();
+            CreateMap<ProdutoCreate, Produto>();
+            CreateMap<Produto, ProdutoResponse>();
 
         }
 

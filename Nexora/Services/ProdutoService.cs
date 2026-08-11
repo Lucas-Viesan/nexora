@@ -4,7 +4,7 @@ using Nexora.Entities;
 using Nexora.Enums;
 using Nexora.Interfaces;
 
-namespace SnackHub.Services;
+namespace Nexora.Services;
 
 public class ProdutoService : IProdutoService
 {
@@ -14,10 +14,11 @@ public class ProdutoService : IProdutoService
 
     public ProdutoService(
         IProdutoRepository produtoRepository,
-        IUsuarioRepository usuarioRepository)
+        IUsuarioRepository usuarioRepository, IMapper mapper)
     {
         _produtoRepository = produtoRepository;
         _usuarioRepository = usuarioRepository;
+        _mapper = mapper;
     }
 
     public async Task<ProdutoResponse> CadastrarProduto(
@@ -25,7 +26,7 @@ public class ProdutoService : IProdutoService
         int usuarioId)
     {
         // Busca o usuário responsável pela operação
-        var usuario = await _usuarioRepository.BuscarPorId(usuarioId);
+        var usuario =  await _usuarioRepository.BuscarPorId(usuarioId);
 
         if (usuario == null)
         {

@@ -14,9 +14,9 @@ namespace Nexora.Controllers
 
         [HttpPost]
         [Route("produto")]
-        public async Task<ActionResult<ProdutoResponse>> CadastrarNovoProduto([FromBody] ProdutoCreate produto)
+        public async Task<ActionResult<ProdutoResponse>> CadastrarNovoProduto([FromBody] ProdutoCreate produto, int usuarioId)
         {
-            var respostaDto = _service.CadastrarProduto(produto);
+            var respostaDto = await _service.CadastrarProduto(produto, usuarioId);
             return Created();
         }
     }

@@ -1,5 +1,4 @@
 ﻿using Nexora.Data.Context;
-using Nexora.DTOs.Produto;
 using Nexora.Entities;
 using Nexora.Interfaces;
 

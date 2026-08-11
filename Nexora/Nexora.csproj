@@ -26,6 +26,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="Dtos\Usuario\" />
     <Folder Include="Enums\" />
   </ItemGroup>
 
