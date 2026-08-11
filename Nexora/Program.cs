@@ -1,11 +1,16 @@
 using Microsoft.EntityFrameworkCore;
 using Nexora.Data.Context;
+using Nexora.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
 
 builder.Services.AddDbContext<AppDbContext>(options => options.UseMySql(connectionString, ServerVersion.AutoDetect(connectionString)));
+
+builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
+
+builder.Services.AddScoped<ProdutoService>();
 
 // Add services to the container.
 

@@ -10,12 +10,12 @@ namespace Nexora.Data.Context
 
         }
 
-        DbSet<Produto> Produtos { get; set; }
-        DbSet<Pedido> Pedidos { get; set; }
-        DbSet<ItemPedido> ItensPedidos { get; set; }
-        DbSet<Cliente> Cliente { get; set; }
-        DbSet<Usuario> Usuarios { get; set; }
-        DbSet<Pagamento> Pagamentos { get; set; }
+        public DbSet<Produto> Produtos { get; set; }
+        public DbSet<Pedido> Pedidos { get; set; }
+        public DbSet<ItemPedido> ItensPedidos { get; set; }
+        public DbSet<Cliente> Cliente { get; set; }
+        public DbSet<Usuario> Usuarios { get; set; }
+        public DbSet<Pagamento> Pagamentos { get; set; }
    
     }
 }
