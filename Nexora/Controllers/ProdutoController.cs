@@ -19,5 +19,13 @@ namespace Nexora.Controllers
             var respostaDto = await _service.CadastrarProduto(produto, usuarioId);
             return Created();
         }
+
+        [HttpGet]
+        [Route("produto")]
+        public async Task<List<ProdutoResponse>> BuscarProdutosDisponiveis()
+        { 
+            var respostaDto = await _service.BuscarTodosProdutosDisponiveis();
+            return respostaDto;
+        }
     }
 }

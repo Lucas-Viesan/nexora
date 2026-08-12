@@ -6,5 +6,6 @@ namespace Nexora.Interfaces
     public interface IProdutoService
     {
         public Task<ProdutoResponse> CadastrarProduto(ProdutoCreate produtoDto, int usuarioId);
+        public  Task<List<ProdutoResponse>> BuscarTodosProdutosDisponiveis();
     }
 }
