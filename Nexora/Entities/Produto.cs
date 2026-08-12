@@ -24,6 +24,25 @@ namespace Nexora.Entities
 
         public DateTime? DataAtualizacao { get; set; }
 
-        public List<ItemPedido> ItensPedido { get; set; } 
+        public List<ItemPedido> ItensPedido { get; set; }
+
+        private Produto()
+        {
+        }
+
+        public Produto(string nome, string? descricao, decimal preco)
+        {
+            if (string.IsNullOrWhiteSpace(nome))
+                throw new ArgumentException("O nome do produto é obrigatório.");
+
+            if (preco <= 0)
+                throw new ArgumentException("O preço do produto deve ser maior que zero.");
+
+            Nome = nome;
+            Descricao = descricao;
+            Preco = preco;
+            Disponivel = true;
+            DataCriacao = DateTime.UtcNow;
+        }
     }
 }
