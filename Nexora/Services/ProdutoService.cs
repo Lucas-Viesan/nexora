@@ -41,10 +41,22 @@ public class ProdutoService : IProdutoService
                 "Somente usuários administradores podem cadastrar produtos.");
         }
 
-        Produto produto = _mapper.Map<Produto>(produtoDto);
+        Produto produto = new Produto(
+           produtoDto.Nome,
+           produtoDto.Descricao,
+           produtoDto.Preco
+        );
         await _produtoRepository.CadastrarProduto(produto);
         var resposta = _mapper.Map<ProdutoResponse>(produto);
         return resposta;
     
     }
+
+    public async Task<List<ProdutoResponse>> BuscarTodosProdutosDisponiveis()
+    {
+        var produtosDisponiveis = await _produtoRepository.VerificarProdutosDisponiveis();
+        return produtosDisponiveis;
+    }
+
+
 }
