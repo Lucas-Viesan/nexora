@@ -140,5 +140,17 @@ public class ProdutoService : IProdutoService
 
     }
 
+    public async Task<ProdutoResponse?> BuscarProdutoPorId(int produtoId)
+    {
+        var produto = await _produtoRepository.BuscarProdutoPorId(produtoId);
+
+        if (produto == null)
+        {
+            return null;
+        }
+
+        return _mapper.Map<ProdutoResponse>(produto);
+    }
+
 
 }

@@ -30,6 +30,19 @@ namespace Nexora.Controllers
             return respostaDto;
         }
 
+        [HttpGet("{produtoId}")]
+        public async Task<ActionResult<ProdutoResponse>> BuscarProdutoPorId(int produtoId)
+        {
+            var produto = await _service.BuscarProdutoPorId(produtoId);
+
+            if (produto == null)
+            {
+                return NotFound();
+            }
+
+            return Ok(produto);
+        }
+
         [HttpPut]
         [Route("produto/{produtoId}")]
         public async Task<ActionResult<ProdutoResponse>> AlterarDadosProduto(int produtoId, int usuarioId, [FromBody] ProdutoAlteracaoDados produtoAlteracao)
