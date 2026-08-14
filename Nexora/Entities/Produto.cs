@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Nexora.Dtos.Produto;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Nexora.Entities
@@ -37,12 +38,26 @@ namespace Nexora.Entities
 
             if (preco <= 0)
                 throw new ArgumentException("O preço do produto deve ser maior que zero.");
-
+            
             Nome = nome;
             Descricao = descricao;
             Preco = preco;
             Disponivel = true;
             DataCriacao = DateTime.UtcNow;
+        }
+
+        public void AlterarProduto(ProdutoAlteracaoDados dados)
+        {
+            if (string.IsNullOrWhiteSpace(dados.Nome))
+                throw new ArgumentException("O nome do produto é obrigatório.");
+
+            if (dados.Preco <= 0)
+                throw new ArgumentException("O preço do produto deve ser maior que zero.");
+
+            Nome = dados.Nome;
+            Descricao = dados.Descricao;
+            Preco = dados.Preco;
+            DataAtualizacao = DateTime.UtcNow;
         }
     }
 }

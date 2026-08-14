@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Nexora.Data.Context;
+using Nexora.Dtos.Produto;
 using Nexora.DTOs.Produto;
 using Nexora.Entities;
 using Nexora.Interfaces;
@@ -34,6 +35,19 @@ namespace Nexora.Repositories
                 .ToListAsync();
 
             return produtosDisponiveis;
+        }
+
+        public async Task<Produto?> AlterarInfoProduto(int id, ProdutoAlteracaoDados produtoAlteracao)
+        {
+            var produto = await _context.Produtos.FirstOrDefaultAsync(p => p.Id == id);
+            if (produto == null) 
+            {
+                return null;
+            }
+            produto.AlterarProduto(produtoAlteracao);
+            await _context.SaveChangesAsync();
+            return produto;
+
         }
     }
 }

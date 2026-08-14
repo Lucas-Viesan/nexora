@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Nexora.Dtos.Produto;
 using Nexora.DTOs.Produto;
 using Nexora.Entities;
 using Nexora.Enums;
@@ -21,9 +22,7 @@ public class ProdutoService : IProdutoService
         _mapper = mapper;
     }
 
-    public async Task<ProdutoResponse> CadastrarProduto(
-        ProdutoCreate produtoDto,
-        int usuarioId)
+    public async Task<ProdutoResponse> CadastrarProduto(int usuarioId, ProdutoCreate produtoDto)
     {
         // Busca o usuário responsável pela operação
         var usuario =  await _usuarioRepository.BuscarPorId(usuarioId);
@@ -56,6 +55,31 @@ public class ProdutoService : IProdutoService
     {
         var produtosDisponiveis = await _produtoRepository.VerificarProdutosDisponiveis();
         return produtosDisponiveis;
+    }
+
+    public async Task<ProdutoResponse?> AlterarInfoDosProdutos(int produtoId, int usuarioId, ProdutoAlteracaoDados produtoAlteracaoDados)
+    {
+        var usuario = await _usuarioRepository.BuscarPorId(usuarioId);
+
+        if (usuario == null)
+        {
+            throw new KeyNotFoundException(
+                "Usuário não encontrado.");
+        }
+
+        // Regra de autorização
+        if (usuario.Perfil != PerfilUsuario.Administrador)
+        {
+            throw new UnauthorizedAccessException(
+                "Somente usuários administradores podem cadastrar produtos.");
+        }
+        var produtoAlterado = await _produtoRepository.AlterarInfoProduto(produtoId, produtoAlteracaoDados);
+        if (produtoAlterado != null) 
+        {
+            var resposta = _mapper.Map<ProdutoResponse>(produtoAlterado);
+            return resposta;
+        }
+        return null;
     }
 
 
