@@ -1,11 +1,14 @@
-﻿using Nexora.DTOs.Produto;
+﻿using Nexora.Dtos.Produto;
+using Nexora.DTOs.Produto;
 using Nexora.Entities;
 
 namespace Nexora.Interfaces
 {
     public interface IProdutoService
     {
-        public Task<ProdutoResponse> CadastrarProduto(ProdutoCreate produtoDto, int usuarioId);
-        public  Task<List<ProdutoResponse>> BuscarTodosProdutosDisponiveis();
+        public Task<ProdutoResponse> CadastrarProduto(int usuarioId, ProdutoCreate produtoDto);
+        public  Task<List<ProdutoResponse?>> BuscarTodosProdutosDisponiveis();
+        public Task<ProdutoResponse?> AlterarInfoDosProdutos(int usuarioId, int produtoId, ProdutoAlteracaoDados produtoAlteracao);
+
     }
 }
