@@ -46,7 +46,7 @@ namespace Nexora.Entities
             DataCriacao = DateTime.UtcNow;
         }
 
-        public void AlterarProduto(ProdutoAlteracaoDados dados)
+        public void Alterar(ProdutoAlteracaoDados dados)
         {
             if (string.IsNullOrWhiteSpace(dados.Nome))
                 throw new ArgumentException("O nome do produto é obrigatório.");
@@ -59,5 +59,24 @@ namespace Nexora.Entities
             Preco = dados.Preco;
             DataAtualizacao = DateTime.UtcNow;
         }
+
+        public void Desativar()
+        {
+            if (!Disponivel)
+                return;
+
+            Disponivel = false;
+            DataAtualizacao = DateTime.UtcNow;
+        }
+
+        public void Ativar()
+        {
+            if (Disponivel)
+                return;
+
+            Disponivel = true;
+            DataAtualizacao = DateTime.UtcNow;
+        }
     }
+    
 }

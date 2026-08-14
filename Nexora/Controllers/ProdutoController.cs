@@ -41,5 +41,33 @@ namespace Nexora.Controllers
             }
             return Ok(produtoAlterado);
         }
+
+
+        [HttpPut]
+        [Route("produto/{produtoId}/desativar")]
+        public async Task<ActionResult<ProdutoResponse>> DesativarProduto(int produtoId, int usuarioId)
+        {
+            var produtoDesativado = await _service.DesativarProduto(produtoId, usuarioId);
+            if (produtoDesativado == null)
+            {
+                return NotFound();
+            }
+            return Ok(produtoDesativado);
+        }
+
+
+        [HttpPut]
+        [Route("produto/{produtoId}/reativar")]
+        public async Task<ActionResult<ProdutoResponse>> ReativarProduto(int produtoId, int usuarioId)
+        {
+            var produtoReativado = await _service.ReativarProduto(produtoId, usuarioId);
+            if (produtoReativado == null)
+            {
+                return NotFound();
+            }
+            return Ok(produtoReativado);
+        }
+
+
     }
 }
