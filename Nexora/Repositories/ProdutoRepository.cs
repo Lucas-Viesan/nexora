@@ -44,10 +44,25 @@ namespace Nexora.Repositories
             {
                 return null;
             }
-            produto.AlterarProduto(produtoAlteracao);
+            produto.Alterar(produtoAlteracao);
             await _context.SaveChangesAsync();
             return produto;
 
+        }
+
+        public async Task<Produto?> BuscarProdutoPorId(int id)
+        {
+            var produto = await _context.Produtos.FirstOrDefaultAsync(p => p.Id == id);
+            if (produto == null)
+            {
+                return null;
+            }
+            return produto;
+        }
+
+        public async Task SalvarAlteracoes()
+        {
+            await _context.SaveChangesAsync();
         }
     }
 }

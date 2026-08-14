@@ -9,5 +9,7 @@ namespace Nexora.Interfaces
         public Task CadastrarProduto(Produto produto);
         public Task<List<ProdutoResponse>> VerificarProdutosDisponiveis();
         public Task<Produto?> AlterarInfoProduto(int id, ProdutoAlteracaoDados produtoAlteracao);
+        public Task<Produto?> BuscarProdutoPorId(int id);
+        public Task SalvarAlteracoes();
     }
 }

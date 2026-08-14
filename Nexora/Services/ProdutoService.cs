@@ -71,7 +71,7 @@ public class ProdutoService : IProdutoService
         if (usuario.Perfil != PerfilUsuario.Administrador)
         {
             throw new UnauthorizedAccessException(
-                "Somente usuários administradores podem cadastrar produtos.");
+                "Somente usuários administradores podem alterar produtos.");
         }
         var produtoAlterado = await _produtoRepository.AlterarInfoProduto(produtoId, produtoAlteracaoDados);
         if (produtoAlterado != null) 
@@ -80,6 +80,64 @@ public class ProdutoService : IProdutoService
             return resposta;
         }
         return null;
+    }
+
+    public async Task<ProdutoResponse?> DesativarProduto(int produtoId, int usuarioId)
+    {
+        var usuario = await _usuarioRepository.BuscarPorId(usuarioId);
+
+        if (usuario == null)
+        {
+            throw new KeyNotFoundException(
+                "Usuário não encontrado.");
+        }
+
+        // Regra de autorização
+        if (usuario.Perfil != PerfilUsuario.Administrador)
+        {
+            throw new UnauthorizedAccessException(
+                "Somente usuários administradores podem desativar produtos.");
+        }
+
+        var produto = await _produtoRepository.BuscarProdutoPorId(produtoId);
+        if(produto != null)
+        {
+            produto.Desativar();
+            await _produtoRepository.SalvarAlteracoes();
+            var resposta = _mapper.Map<ProdutoResponse>(produto);
+            return resposta;
+        }
+        return null;
+       
+    }
+
+    public async Task<ProdutoResponse?> ReativarProduto(int produtoId, int usuarioId)
+    {
+        var usuario = await _usuarioRepository.BuscarPorId(usuarioId);
+
+        if (usuario == null)
+        {
+            throw new KeyNotFoundException(
+                "Usuário não encontrado.");
+        }
+
+        // Regra de autorização
+        if (usuario.Perfil != PerfilUsuario.Administrador)
+        {
+            throw new UnauthorizedAccessException(
+                "Somente usuários administradores podem desativar produtos.");
+        }
+
+        var produto = await _produtoRepository.BuscarProdutoPorId(produtoId);
+        if (produto != null)
+        {
+            produto.Ativar();
+            await _produtoRepository.SalvarAlteracoes();
+            var resposta = _mapper.Map<ProdutoResponse>(produto);
+            return resposta;
+        }
+        return null;
+
     }
 
 
