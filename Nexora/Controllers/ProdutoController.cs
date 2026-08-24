@@ -6,7 +6,9 @@ using Nexora.Interfaces;
 
 namespace Nexora.Controllers
 {
-    public class ProdutoController : Controller
+    [ApiController]
+    [Route("[controller]")]
+    public class ProdutoController : ControllerBase
     {
         private IProdutoService _service;
         public ProdutoController(IProdutoService service)

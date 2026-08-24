@@ -33,7 +33,7 @@ namespace Nexora.Entities
 
         public DateTime? DataAtualizacao { get; private set; }
 
-        public List<ItemPedido> Itens { get; set; } 
+        public List<ItemPedido> Itens { get; set; } = new();
 
         public Pagamento? Pagamento { get; set; }
 
