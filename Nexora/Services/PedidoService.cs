@@ -2,6 +2,7 @@
 using Nexora.Enums;
 using Nexora.Interfaces;
 using Nexora.Dtos.Pedido;
+using AutoMapper;
 
 namespace Nexora.Services
 {
@@ -10,16 +11,19 @@ namespace Nexora.Services
         private readonly IPedidoRepository _pedidoRepository;
         private readonly IProdutoRepository _produtoRepository;
         private readonly IClienteRepository _clienteRepository;
+        private IMapper _mapper;
 
 
         public PedidoService(
             IPedidoRepository pedidoRepository,
             IProdutoRepository produtoRepository,
-            IClienteRepository clienteRepository)
+            IClienteRepository clienteRepository,
+            IMapper mapper)
         {
             _pedidoRepository = pedidoRepository;
             _produtoRepository = produtoRepository;
             _clienteRepository = clienteRepository;
+            _mapper = mapper;
         }
         public async Task<Pedido> CriarPedido(PedidoCreate pedidoDto, int? usuarioId)
         {
@@ -50,6 +54,17 @@ namespace Nexora.Services
             await _pedidoRepository.CadastrarPedido(pedido);
 
             return pedido;
+        }
+
+        public async Task<PedidoResponse> ConsultarPedidoId(int id)
+        {
+            var pedido = await _pedidoRepository.BuscarPedidoId(id);
+            if (pedido is null)
+            {
+                return null;
+            }
+          var pedidoResponse  = _mapper.Map<PedidoResponse>(pedido);
+        return pedidoResponse;
         }
     }
 }

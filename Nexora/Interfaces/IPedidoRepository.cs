@@ -6,5 +6,6 @@ namespace Nexora.Interfaces
     {
        public Task CadastrarPedido(Pedido pedido);
        public Task SalvarAlteracoes();
+       public Task<Pedido?> BuscarPedidoId(int id);
     }
 }

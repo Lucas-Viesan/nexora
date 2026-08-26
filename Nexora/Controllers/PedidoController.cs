@@ -22,5 +22,17 @@ namespace Nexora.Controllers
             var pedido = await _pedidoService.CriarPedido(pedidoDto, usuarioId);
             return Created();
         }
+
+        [HttpGet]
+        [Route("pedido/{id}")]
+        public async Task<ActionResult<PedidoResponse>> ConsultarPedidoId(int id)
+        {
+            var pedido = await _pedidoService.ConsultarPedidoId(id);
+            if(pedido == null)
+            {
+                NotFound();
+            }
+            return Ok(pedido);
+        }
     }
 }

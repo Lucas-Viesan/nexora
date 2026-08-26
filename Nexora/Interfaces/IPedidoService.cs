@@ -6,5 +6,6 @@ namespace Nexora.Interfaces
     public interface IPedidoService
     {
         public Task<Pedido> CriarPedido(PedidoCreate dto, int? usuarioId);
+        public Task<PedidoResponse> ConsultarPedidoId(int id);
     }
 }
