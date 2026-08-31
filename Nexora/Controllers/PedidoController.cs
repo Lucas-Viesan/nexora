@@ -30,7 +30,7 @@ namespace Nexora.Controllers
             var pedido = await _pedidoService.ConsultarPedidoId(id);
             if(pedido == null)
             {
-                NotFound();
+               return NotFound();
             }
             return Ok(pedido);
         }

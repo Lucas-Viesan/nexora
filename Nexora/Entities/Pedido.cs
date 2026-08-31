@@ -37,6 +37,8 @@ namespace Nexora.Entities
 
         public Pagamento? Pagamento { get; set; }
 
+        public decimal Total => Itens.Sum(i => i.Subtotal);
+
         protected Pedido() { } 
         public Pedido(OrigemPedido origem, Cliente? cliente, int? criadoPorUsuarioId)
         {
