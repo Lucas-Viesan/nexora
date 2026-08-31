@@ -22,7 +22,10 @@ namespace Nexora.Repositories
 
         public async Task<Pedido?> BuscarPedidoId(int id)
         {
-            var pedido = await _context.Pedidos.FirstOrDefaultAsync(p => p.Id == id);
+            var pedido = await _context.Pedidos
+                .Include(p => p.Cliente)
+                .Include(p => p.Itens)
+                .FirstOrDefaultAsync(p => p.Id == id);
             if (pedido == null)
             {
                 return null;
