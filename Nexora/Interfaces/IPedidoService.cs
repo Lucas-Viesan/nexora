@@ -1,4 +1,5 @@
-﻿using Nexora.Dtos.Pedido;
+﻿using Nexora.Dtos.ItemPedido;
+using Nexora.Dtos.Pedido;
 using Nexora.Entities;
 
 namespace Nexora.Interfaces
@@ -7,5 +8,6 @@ namespace Nexora.Interfaces
     {
         public Task<Pedido> CriarPedido(PedidoCreate dto, int? usuarioId);
         public Task<PedidoResponse> ConsultarPedidoId(int id);
+        public Task<PedidoResponse> AdicionarItemAoPedido(int id, ItemPedidoCreate itemPedidoDto);
     }
 }

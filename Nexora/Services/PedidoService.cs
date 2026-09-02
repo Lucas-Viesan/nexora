@@ -3,6 +3,7 @@ using Nexora.Enums;
 using Nexora.Interfaces;
 using Nexora.Dtos.Pedido;
 using AutoMapper;
+using Nexora.Dtos.ItemPedido;
 
 namespace Nexora.Services
 {
@@ -65,6 +66,24 @@ namespace Nexora.Services
             }
           var pedidoResponse  = _mapper.Map<PedidoResponse>(pedido);
         return pedidoResponse;
+        }
+
+        public async Task<PedidoResponse> AdicionarItemAoPedido(int id, ItemPedidoCreate itemPedidoDto)
+        {
+            var pedido = await _pedidoRepository.BuscarPedidoId(id);
+            if(pedido is null)
+            {
+                throw new InvalidOperationException("Pedido não encontrado");
+            }
+            var produto = await _produtoRepository.BuscarProdutoPorId(itemPedidoDto.ProdutoId);
+            if (produto is null)
+                throw new InvalidOperationException($"Produto {itemPedidoDto.ProdutoId} não foi encontrado.");
+
+            pedido.AdicionarItem(produto, itemPedidoDto.Quantidade, itemPedidoDto.Observacao);
+
+            await _pedidoRepository.SalvarAlteracoes();
+
+            return _mapper.Map<PedidoResponse>(pedido);
         }
     }
 }
