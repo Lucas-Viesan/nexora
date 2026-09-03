@@ -26,7 +26,7 @@ namespace Nexora.Services
             _clienteRepository = clienteRepository;
             _mapper = mapper;
         }
-        public async Task<Pedido> CriarPedido(PedidoCreate pedidoDto, int? usuarioId)
+        public async Task<PedidoResponse> CriarPedido(PedidoCreate pedidoDto, int? usuarioId)
         {
             if (pedidoDto.Itens is null || pedidoDto.Itens.Count == 0)
                 throw new ArgumentException("O pedido deve conter ao menos um item.");
@@ -54,7 +54,7 @@ namespace Nexora.Services
 
             await _pedidoRepository.CadastrarPedido(pedido);
 
-            return pedido;
+            return _mapper.Map<PedidoResponse>(pedido);
         }
 
         public async Task<PedidoResponse> ConsultarPedidoId(int id)
