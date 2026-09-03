@@ -18,10 +18,10 @@ namespace Nexora.Controllers
 
         [HttpPost]
         [Route("pedido")]
-        public async Task<ActionResult<Pedido>> CadastrarNovoPedido([FromBody] PedidoCreate pedidoDto, [FromQuery] int? usuarioId)
+        public async Task<ActionResult<PedidoResponse>> CadastrarNovoPedido([FromBody] PedidoCreate pedidoDto, [FromQuery] int? usuarioId)
         {
             var pedido = await _pedidoService.CriarPedido(pedidoDto, usuarioId);
-            return Created();
+            return CreatedAtAction(nameof(ConsultarPedidoId), new { id = pedido.Id }, pedido);
         }
 
         [HttpGet]
