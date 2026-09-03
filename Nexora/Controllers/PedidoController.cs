@@ -49,5 +49,50 @@ namespace Nexora.Controllers
                 return UnprocessableEntity(ex.Message);
             }
         }
+
+        [HttpPut]
+        [Route("pedido/{id}/itens/{itemId}")]
+        public async Task<ActionResult<PedidoResponse>> AlterarQuantidadeItemPedido(int id, int itemId, [FromBody] ItemPedidoAlterarQuantidade itemPedidoQuantidadeDto) 
+        {
+            try
+            {
+                var pedido = await _pedidoService.AlterarQuantidadeItemPedido(id, itemId, itemPedidoQuantidadeDto);
+                return Ok(pedido);
+            }
+            catch (InvalidOperationException ex)
+            {
+                return UnprocessableEntity(ex.Message);
+            }
+        }
+
+        [HttpPut]
+        [Route("pedido/{id}/cancelar")]
+        public async Task<ActionResult<PedidoResponse>> CancelarPedido(int id)
+        {
+            try
+            {
+                var pedido = await _pedidoService.CancelarPedido(id);
+                return Ok(pedido);
+            }
+            catch (InvalidOperationException ex)
+            {
+                return UnprocessableEntity(ex.Message);
+            }
+        }
+
+        [HttpDelete]
+        [Route("pedido/{id}/itens/{itemId}")]
+        public async Task<ActionResult<PedidoResponse>> RemoverItemPedido(int id, int itemId)
+        {
+            try
+            {
+                var pedido = await _pedidoService.RemoverItemPedido(id, itemId);
+                return Ok(pedido);
+            }
+            catch (InvalidOperationException ex)
+            {
+                return UnprocessableEntity(ex.Message);
+            }
+        }
     }
 }

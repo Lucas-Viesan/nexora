@@ -85,5 +85,48 @@ namespace Nexora.Services
 
             return _mapper.Map<PedidoResponse>(pedido);
         }
+
+        public async Task<PedidoResponse> AlterarQuantidadeItemPedido(int id, int itemId, ItemPedidoAlterarQuantidade itemPedidoQuantidadeDto)
+        {
+            var pedido = await _pedidoRepository.BuscarPedidoId(id);
+            if (pedido is null)
+            {
+                throw new InvalidOperationException("Pedido não encontrado");
+            }
+
+            pedido.AlterarQuantidadeItem(itemId, itemPedidoQuantidadeDto.Quantidade);
+
+            await _pedidoRepository.SalvarAlteracoes();
+
+            return _mapper.Map<PedidoResponse>(pedido);
+        }
+
+        public async Task<PedidoResponse> CancelarPedido(int id)
+        {
+            var pedido = await _pedidoRepository.BuscarPedidoId(id);
+            if (pedido is null)
+            {
+                throw new InvalidOperationException("Pedido não encontrado");
+            }
+
+            pedido.Cancelar();
+            await _pedidoRepository.SalvarAlteracoes();
+
+            return _mapper.Map<PedidoResponse>(pedido);
+        }
+
+        public async Task<PedidoResponse> RemoverItemPedido(int id, int itemId)
+        {
+            var pedido = await _pedidoRepository.BuscarPedidoId(id);
+            if (pedido is null)
+            {
+                throw new InvalidOperationException("Pedido não encontrado");
+            }
+
+            pedido.RemoverItem(itemId);
+            await _pedidoRepository.SalvarAlteracoes();
+
+            return _mapper.Map<PedidoResponse>(pedido);
+        }
     }
 }
